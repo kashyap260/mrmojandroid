@@ -1,10 +1,11 @@
-name: Build Mr Moj APK
+name: Build Mr Moj apk
 
 on:
   workflow_dispatch:
   push:
     paths:
       - 'MyChat_Android_Starter.zip'
+      - 'google-services.json'
       - '.github/workflows/android.yml'
 
 jobs:
@@ -29,35 +30,15 @@ jobs:
       - name: Extract project
         run: |
           unzip MyChat_Android_Starter.zip -d source
-
-      - name: Fix JVM targets
-        run: |
-          cat >> source/MyChat_Android_Starter/app/build.gradle.kts <<'EOF'
-
-          android {
-              compileOptions {
-                  sourceCompatibility = JavaVersion.VERSION_17
-                  targetCompatibility = JavaVersion.VERSION_17
-              }
-          }
-
-          tasks.withType<org.gradle.api.tasks.compile.JavaCompile>().configureEach {
-              sourceCompatibility = "17"
-              targetCompatibility = "17"
-          }
-
-          tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-              kotlinOptions.jvmTarget = "17"
-          }
-          EOF
+          cp google-services.json source/MyChat_Android_Starter/app/google-services.json
 
       - name: Build APK
         run: |
           cd source/MyChat_Android_Starter
           gradle assembleDebug
 
-      - name: Save APK
+      - name: Save apk
         uses: actions/upload-artifact@v4
         with:
-          name: Mr-Moj-APK
+          name: mr-moj-apk
           path: source/MyChat_Android_Starter/app/build/outputs/apk/debug/*.apk
