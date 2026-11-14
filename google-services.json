@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "219345762419",
+    "project_id": "mr-moj-938ae",
+    "storage_bucket": "mr-moj-938ae.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219345762419:android:3fcb632b730f40ebffd206",
+        "android_client_info": {
+          "package_name": "com.mrmoj.mychat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArXZVUw8OC7r0L4o6QQ2huooebzEQHlVc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
