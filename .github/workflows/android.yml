@@ -32,6 +32,25 @@ jobs:
           unzip MyChat_Android_Starter.zip -d source
           cp google-services.json source/MyChat_Android_Starter/app/google-services.json
 
+      - name: Fix JVM target
+        run: |
+          FILE="source/MyChat_Android_Starter/app/build.gradle.kts"
+          cat >> "$FILE" <<'EOF'
+
+          android {
+              compileOptions {
+                  sourceCompatibility = JavaVersion.VERSION_17
+                  targetCompatibility = JavaVersion.VERSION_17
+              }
+          }
+
+          tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+              compilerOptions {
+                  jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+              }
+          }
+          EOF
+
       - name: Build APK
         run: |
           cd source/MyChat_Android_Starter
